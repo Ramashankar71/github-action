@@ -1,0 +1,40 @@
+# This is the name o f workflow will be display in the action tab
+name: CICD
+on:
+  workflow_dispatch: 
+    inputs:
+      enviroments:
+        discription: This is the enviroment whre this workflow runs
+        default: 'dev'
+        required: true
+        type: choice
+        options:
+          - dev
+          - prod
+          - staging
+  jobs:
+    code:
+      runs-on: ubuntu-latest
+      steps:
+        - name: checkout code
+          run: echo "code clone from github"
+     build:
+     needs: [code]
+     runs-on: ubuntu-latest
+     steps:
+        - name: Build Docker Container
+          runs: echo "Docker Container Build"
+  test:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test the container
+        runs: echo "testing the Container"
+  deploy:
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy the app
+        runs: echo "Docker compose deploy the app"
+  
+
