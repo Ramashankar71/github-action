@@ -3,7 +3,7 @@ name: CICD
 on:
   workflow_dispatch: 
     inputs:
-      enviroments:
+      enviroment:
         discription: This is the enviroment whre this workflow runs
         default: 'dev'
         required: true
